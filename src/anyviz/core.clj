@@ -19,14 +19,18 @@
 
 (defn query-turbine [params]
   (let [query (t/create-query-from-params params)
-        results (t/query query)]
+        db (:db params)
+        coll (:coll params)
+        results (t/query query db coll)]
     {:query query :results results}))
 
 (defroutes routes
   (GET "/alo" [] "alo guvna")
   (GET "/query" {params :params} (-> params query-turbine json/generate-string))
-  (GET "/" [] (v/query-builder))
-  (route/resources "/"))
+  (GET "/" [] (v/instance-view (t/get-databases)))
+  (GET "/db/:db" [db] (v/database-view db (t/get-collections db)))
+  (GET "/db/:db/:coll" [db coll] (v/query-builder db coll (t/get-segments db coll)))
+  (route/resources "/static/"))
 
 (defn app-routes [{mode :mode}]
   (if (= mode "prod")

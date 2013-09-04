@@ -5,12 +5,30 @@
             [anyviz.global :as g]
             [clj-time.coerce :refer :all]))
 
-(defn coll-url []
-  (str @g/turbinedb-url "/db/" @g/turbinedb-database "/" @g/turbinedb-collection))
+(defn base-url []
+  (str @g/turbinedb-url "/db"))
 
-(defn query [q]
+(defn db-url [db]
+  (str (base-url) "/" db))
+
+(defn coll-url [db coll]
+  (str (db-url db) "/" coll))
+
+(defn retrieve-meta [url]
+  (-> url client/get :body (json/parse-string true)))
+
+(defn get-databases []
+  (retrieve-meta (base-url)))
+
+(defn get-collections [db]
+  (retrieve-meta (db-url db)))
+
+(defn get-segments [db coll]
+  (retrieve-meta (coll-url db coll)))
+
+(defn query [q db coll]
   (let [q-json (json/generate-string q)
-        url (coll-url)
+        url (coll-url db coll)
         res (client/get url {:query-params {"q" q-json}})
         body (:body res)]
     (json/parse-string body true)))

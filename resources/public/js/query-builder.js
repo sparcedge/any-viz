@@ -4,11 +4,11 @@ $(function() {
     });
 });
 
-var buildQuery = function() {
+var buildQuery = function(db, coll) {
     var matches = getMatches();
     var groups = getGroups();
     var reducers = getReducers();
-    return makeQuery(matches, groups, reducers);
+    return makeQuery(db, coll, matches, groups, reducers);
 }
 
 var getTimeString = function(timeValue) {
@@ -41,12 +41,7 @@ var first = function(obj) {
 
 var createTimeData = function() {
     return function(timeResults) {
-        var res;
-
-        res = timeResults.data[0].data[0];
-
-        console.log(timeResults);
-
+        var res = timeResults.data[0].data[0];
         return [
             moment(timeResults.group, getTimeString(timeValue())).unix()*1000,
             first(res)
@@ -74,9 +69,12 @@ var updateResultsBlock = function(results) {
 };
 
 var renderGraph = function() {
-    var query = buildQuery();
+    var pathArray = window.location.pathname.split('/')
+        db = pathArray[2]
+        coll = pathArray[3]
+        query = buildQuery(db, coll);
 
-    $.getJSON('query?'+query, function(res) {        
+    $.getJSON('/query?'+query, function(res) {        
         var series;
         var data = res.results;
         var query = res.query;
@@ -116,8 +114,8 @@ var renderGraph = function() {
     });
 }
 
-var makeQuery = function(matches, groups, reducers) {
-    return "groups="+groups+"&reducers="+reducers+"&matches="+matches;
+var makeQuery = function(db, coll, matches, groups, reducers) {
+    return "db="+db+"&coll="+coll+"&groups="+groups+"&reducers="+reducers+"&matches="+matches;
 }
 
 var matchOp = function() {
