@@ -4,6 +4,7 @@
 
 (defn common-head [& extras]
   [:head
+    [:title @g/display-name]
     [:link {:href "/static/bootstrap/css/bootstrap.min.css" :rel "stylesheet" :media "screen"}]
     [:script {:src "http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"}]
     [:script {:src "/static/bootstrap/js/bootstrap.min.js"}]
