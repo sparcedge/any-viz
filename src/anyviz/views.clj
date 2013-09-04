@@ -49,6 +49,7 @@
   (html
     [:html
       [:head
+        [:title @g/display-name]
         [:link {:href "bootstrap/css/bootstrap.min.css" :rel "stylesheet" :media "screen"}]
         [:script {:src "http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"}]
         [:script {:src "bootstrap/js/bootstrap.min.js"}]
