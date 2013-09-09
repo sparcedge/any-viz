@@ -20,7 +20,7 @@
     [:ul.nav.navbar-nav]])
 
 (def match-operators ["=","!=","<","<=",">",">="])
-(def group-times ["year","month","hour","day","minute"])
+(def group-times ["year","month","day","hour","minute"])
 (def reduce-operators ["count","min","max","sum","avg","stdev"])
 
 (defn dropdown-item [item]
