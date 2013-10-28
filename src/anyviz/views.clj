@@ -11,6 +11,7 @@
     [:script {:src "http://code.highcharts.com/highcharts.js"}]
     [:link {:href "/static/css/anyviz.css" :rel "stylesheet" :media "screen"}]
     [:script {:src "/static/js/query-builder.js"}]
+    [:script {:src "/static/js/turbine.js"}]
     [:script {:src "/static/js/moment.min.js"}]
     extras])
 

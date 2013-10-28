@@ -8,7 +8,8 @@ var buildQuery = function(db, coll) {
     var matches = getMatches();
     var groups = getGroups();
     var reducers = getReducers();
-    return makeQuery(db, coll, matches, groups, reducers);
+    var query = makeQuery(db, coll, matches, groups, reducers);
+    return JSON.stringify(query);
 }
 
 var getTimeString = function(timeValue) {
@@ -74,7 +75,8 @@ var renderGraph = function() {
         coll = pathArray[3]
         query = buildQuery(db, coll);
 
-    $.getJSON('/query?'+query, function(res) {        
+    $.getJSON('/query?q='+encodeURIComponent(query), function(res) {  
+        console.log(res);      
         var series;
         var data = res.results;
         var query = res.query;
@@ -114,10 +116,6 @@ var renderGraph = function() {
     });
 }
 
-var makeQuery = function(db, coll, matches, groups, reducers) {
-    return "db="+db+"&coll="+coll+"&groups="+groups+"&reducers="+reducers+"&matches="+matches;
-}
-
 var matchOp = function() {
     var op = selected($("#match-ops"));
     if(op === "=") {
@@ -133,28 +131,32 @@ var matchOp = function() {
     } else if(op === "!=") {
         return "ne";
     }
-}
+};
 
 var getMatches = function() {
     var entity = selected($("#match-entities"))
     if(entity === "none") {
-        return "";
+        return [];
     } else {
-        return entity+":"+matchOp()+":"+$("#match-val").val();
+        return [createMatch(entity, matchOp(), $("#match-val").val())];
     }
-}
+};
 
 var getGroups = function() {
     var entity = selected($("#group-entities"));
     var time = selected($("#group-times"))
-    if(entity === "none") {
-        return time;
-    } else {
-        return entity+","+time;
+    var durationGroup = createDurationGroup(time);
+    var groups = [durationGroup];
+
+    if(entity !== "none") {
+        groups.push(createSegmentGroup(entity));
     }
-}
+
+    return groups;
+};
 
 var getReducers = function() {
-    var reduceEntity = selected($("#reduce-entities"));
-    return reduceEntity+":"+selected($("#reduce-ops"));
-}
+    var entity = selected($("#reduce-entities"));
+    var op = selected($("#reduce-ops"));
+    return [createReducer(entity, op)];
+};

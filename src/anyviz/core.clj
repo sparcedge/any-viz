@@ -19,8 +19,8 @@
 
 (defn query-turbine [params]
   (let [query (t/create-query-from-params params)
-        db (:db params)
-        coll (:coll params)
+        db (:db query)
+        coll (:coll query)
         results (t/query query db coll)]
     {:query query :results results}))
 

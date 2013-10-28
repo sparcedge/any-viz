@@ -33,65 +33,34 @@
         body (:body res)]
     (json/parse-string body true)))
 
-(defn get-first [key results]
-  (-> results first :data first :data first key))
-
-(defn create-query [matches groups reduces start end]
-  (merge
-    {:match matches :group groups :reduce reduces}
-    (when start {:start start})
-    (when end {:end end})))
-
-(defn valid-reducer? [[k v]]
-  (and (not (nil? k)) (not (nil? v))))
-
-(defn convert-reducer [[k v]]
-  {(str k "-" v) {v k}})
-
-(defn get-reducers [params]
-  (when-let [reducers (:reducers params)]
-    (->> (str/split reducers #",")
-         (map #(str/split % #":"))
-         (filter valid-reducer?)
-         (map convert-reducer))))
-
-(defn convert-group [group]
-  (if (contains? #{"minute" "hour" "day" "month" "year"} group) 
-    {"duration" group}
-    {"segment" group}))
-
-(defn get-groups [params]
-  (when-let [groups (:groups params)]
-    (->> (str/split groups #",")
-         (map convert-group)
-         (remove nil?))))
+(def str-operators #{"eq" "neq"})
 
 (defn parse-double [s]
   (Double/parseDouble s))
 
-(defn convert-match [[s m v]]
-  (if (not= m "eq")
-    {s {m (parse-double v)}}
-    {s {m v}}))
+(defn convert-dbl [match]
+  (let [[seg expr] (first match)
+        [op value] (first expr)
+        new-value (if (str-operators op) value (parse-double value))]
+    {seg {op new-value}}))
 
-(defn invalid-match? [[s m v]]
-  (or (nil? s) (nil? m) (nil? v)))
+(defn validate-query [query]
+  (let [updated (assoc query :match 
+                             (->> query :match (map convert-dbl)))]
+    updated))
 
-(defn get-matches [params]
-  (when-let [matches (:matches params)]
-    (->> (str/split matches #",")
-         (map #(str/split % #":"))
-         (remove invalid-match?)
-         (map convert-match))))
+(defn create-valid-query [query start end]
+  (merge
+    (validate-query query)
+    (when start {:start start})
+    (when end {:end end})))
 
 (defn long-or-nil [str]
   (when str
     (Long/parseLong str)))
 
-(defn create-query-from-params [params]
-  (let [matches (get-matches params)
-        groups (get-groups params)
-        reducers (get-reducers params)
-        start (-> params :start long-or-nil)
-        end (-> params :end long-or-nil)]
-    (create-query matches groups reducers start end)))
+(defn create-query-from-params [{:keys [q start end]}]
+  (let [query (json/parse-string q true)
+        start (long-or-nil start)
+        end (long-or-nil end)]
+    (create-valid-query query start end)))
