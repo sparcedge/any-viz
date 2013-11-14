@@ -23,7 +23,7 @@
 (def match-operators ["=","!=","<","<=",">",">="])
 (def group-times ["year","month","day","hour","minute"])
 (def reduce-operators ["count","min","max","sum","avg","stdev"])
-(def date-ranges ["last day","last 7 days","last 30 days","last year","all time"])
+(def date-ranges ["all time","last year","last 30 days","last 7 days","last day"])
 
 (defn dropdown-item [item]
   [:option {:value item} item])
