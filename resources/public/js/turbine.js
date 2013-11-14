@@ -1,11 +1,26 @@
-var makeQuery = function(db, coll, matches, groups, reducers) {
-    return {
-        db: db,
-        coll: coll,
-        match: matches,
-        group: groups,
-        reduce: reducers
+var makeQuery = function(db, coll, start, matches, groups, reducers) {
+    var json;
+
+    if(start !== ""){
+        json = {
+            db: db,
+            coll: coll,
+            start: start,
+            match: matches,
+            group: groups,
+            reduce: reducers
+        }
+    } else {
+        json = {
+            db: db,
+            coll: coll,
+            match: matches,
+            group: groups,
+            reduce: reducers
+        } 
     }
+
+    return json;
 }
 
 var createMatch = function(entity, op, value) {

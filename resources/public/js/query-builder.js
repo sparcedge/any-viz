@@ -5,10 +5,11 @@ $(function() {
 });
 
 var buildQuery = function(db, coll) {
+    var start = getStartDate();
     var matches = getMatches();
     var groups = getGroups();
     var reducers = getReducers();
-    var query = makeQuery(db, coll, matches, groups, reducers);
+    var query = makeQuery(db, coll, start, matches, groups, reducers);
     return JSON.stringify(query);
 }
 
@@ -74,8 +75,9 @@ var renderGraph = function() {
         db = pathArray[2]
         coll = pathArray[3]
         query = buildQuery(db, coll);
-
-    $.getJSON('/query?q='+encodeURIComponent(query), function(res) {  
+        
+        console.log(query);
+        $.getJSON('/query?q='+encodeURIComponent(query), function(res) {  
         console.log(res);      
         var series;
         var data = res.results;
@@ -159,4 +161,26 @@ var getReducers = function() {
     var entity = selected($("#reduce-entities"));
     var op = selected($("#reduce-ops"));
     return [createReducer(entity, op)];
+};
+
+var getStartDate = function() {
+    var daterange = selected($("#date-range"));
+    var startdate;
+    var days;
+    
+    if(daterange === "last day"){
+        days = 1;
+    } else if(daterange === "last 7 days") {
+        days = 7;
+    } else if (daterange === "last 30 days") {
+        days = 30;
+    } else if(daterange === "last year") {
+        days = 365;
+    } else { // all time
+        return "";
+    }
+
+    startdate = moment().subtract('days', days).unix() * 1000;
+    
+    return startdate;
 };

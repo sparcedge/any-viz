@@ -1,9 +1,6 @@
 {
     "mode": "dev",
-    "display-name": "AnyViz",
+    "display-name": "osx-usage-stats",
     "turbinedb-url": "http://localhost:8080",
-    "turbinedb-database": "db",
-    "turbinedb-collection": "coll",
-    "turbinedb-segments": ["segment1","segment2","segment3"],
     "server-port": 9000
 }
