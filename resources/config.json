@@ -1,6 +1,6 @@
 {
-    "mode": "dev", // dev, prod
-    "display-name": "AnyViz", // branding
+    "mode": "dev",
+    "display-name": "AnyViz",
     "turbinedb-url": "http://localhost:8080",
     "server-port": 9000
 }
