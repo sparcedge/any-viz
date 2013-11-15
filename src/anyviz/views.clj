@@ -23,6 +23,8 @@
 (def match-operators ["=","!=","<","<=",">",">="])
 (def group-times ["year","month","day","hour","minute"])
 (def reduce-operators ["count","min","max","sum","avg","stdev"])
+(def date-ranges ["all time","last year","last 30 days","last 7 days","last day"])
+(def graph-types ["spline", "column", "line", "area", "bar", "areaspline", "scatter"])
 
 (defn dropdown-item [item]
   [:option {:value item} item])
@@ -90,6 +92,12 @@
             (wg [:label "Reduce"])
             (wg (dropdown segments "reduce-entities"))
             (wg (dropdown reduce-operators "reduce-ops"))]
+          [:div.row
+            (wg [:label "Date Range"])
+            (wg (dropdown date-ranges "date-range"))]
+          [:div.row
+            (wg [:label "Graph Type"])
+            (wg (dropdown graph-types "graph-type"))] 
           [:div.row
             [:button#go-btn.btn.btn-primary {:type "button"} "Run Query"]]]
         [:div {:style "text-align: center;"}
