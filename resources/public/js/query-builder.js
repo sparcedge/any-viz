@@ -100,7 +100,7 @@ var renderGraph = function() {
         $('#dynamic-graph').highcharts({
             chart: {
                 zoomType: 'x',
-                type: 'spline'
+                type: selected($("#graph-type"))
             },
             title: {
                 text: 'Query Results'
