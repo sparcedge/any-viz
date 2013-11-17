@@ -164,7 +164,7 @@ var getReducers = function() {
 };
 
 var getStartDate = function() {
-    var daterange = selected($("#date-range"));
+    var daterange = selected($("#date-period"));
     var startdate;
     var days;
 
