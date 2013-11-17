@@ -23,7 +23,7 @@
 (def match-operators ["=","!=","<","<=",">",">="])
 (def group-times ["year","month","day","hour","minute"])
 (def reduce-operators ["count","min","max","sum","avg","stdev"])
-(def date-ranges ["all time","last year","last 30 days","last 7 days","last day"])
+(def date-ranges ["all time","last year","last 6 months","last 30 days","last 7 days","last day","last hour"])
 (def graph-types ["spline", "column", "line", "area", "bar", "areaspline", "scatter"])
 
 (defn dropdown-item [item]

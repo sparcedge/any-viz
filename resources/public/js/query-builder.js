@@ -167,20 +167,25 @@ var getStartDate = function() {
     var daterange = selected($("#date-range"));
     var startdate;
     var days;
-    
-    if(daterange === "last day"){
-        days = 1;
-    } else if(daterange === "last 7 days") {
-        days = 7;
-    } else if (daterange === "last 30 days") {
-        days = 30;
-    } else if(daterange === "last year") {
-        days = 365;
-    } else { // all time
-        return "";
+
+    if(daterange === "last hour") {
+        startdate = moment().subtract('hours', 1).unix() * 1000;
+    } else if(daterange === "last 6 months") {
+        startdate = moment().subtract('months', 6).unix() * 1000;
+    } else {
+        if(daterange === "last day"){
+            days = 1;
+        } else if(daterange === "last 7 days") {
+            days = 7;
+        } else if (daterange === "last 30 days") {
+            days = 30;
+        } else if(daterange === "last year") {
+            days = 365;
+        } else { // all time
+            return ;
+        }
+        startdate = moment().subtract('days', days).unix() * 1000;
     }
 
-    startdate = moment().subtract('days', days).unix() * 1000;
-    
     return startdate;
 };
