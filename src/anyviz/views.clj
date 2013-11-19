@@ -78,35 +78,47 @@
         (nav-bar)
         (breadcrumbs [["home" "/"] (linkify-db db) (linkify-coll db coll)])
         [:div.container
-          [:div.row
-            (wg [:label "Match: "])
-            (wg (dropdown segments "none" "match-entities"))
-            (wg (dropdown match-operators "none" "match-ops"))
-            (wg (input "value"))]
-          [:div.row
-            (wg [:label "Group (Segment)"])
-            (wg (dropdown segments "none" "group-entities"))
-            (wg [:label "Group (Time)"])
-            (wg (dropdown group-times "group-times"))]
-          [:div.row
-            (wg [:label "Reduce"])
-            (wg (dropdown segments "reduce-entities"))
-            (wg (dropdown reduce-operators "reduce-ops"))]
-          [:div.row
-            (wg [:label "Period"])
-            (wg (dropdown date-periods "date-period"))]
-          [:div.row
-            (wg [:label "Graph Type"])
-            (wg (dropdown graph-types "graph-type"))] 
-          [:div.row
-            [:button#go-btn.btn.btn-primary {:type "button"} "Run Query"]]]
-        [:div {:style "text-align: center;"}
-          (el-header "Graph")
-          [:div#dynamic-graph {:style "width 100%; height:400px;"}]
-          (el-header "Query")
-          [:pre#query {:style "text-align: left;"}]
-          (el-header "Results")
-          [:pre#results {:style "text-align: left;"}]]]]))
+          [:div.panel.panel-primary
+            [:div.panel-heading
+              [:h3.panel-title "Query Builder"]]
+            [:div.panel-body
+              [:div.row
+                (wg [:label "Match: "])
+                (wg (dropdown segments "none" "match-entities"))
+                (wg (dropdown match-operators "none" "match-ops"))
+                (wg (input "value"))]
+              [:div.row
+                (wg [:label "Group (Segment)"])
+                (wg (dropdown segments "none" "group-entities"))
+                (wg [:label "Group (Time)"])
+                (wg (dropdown group-times "group-times"))]
+              [:div.row
+                (wg [:label "Reduce"])
+                (wg (dropdown segments "reduce-entities"))
+                (wg (dropdown reduce-operators "reduce-ops"))]
+              [:div.row
+                (wg [:label "Period"])
+                (wg (dropdown date-periods "date-period"))]
+              [:div.row
+                (wg [:label "Graph Type"])
+                (wg (dropdown graph-types "graph-type"))] 
+              [:div.row
+                (wg [:button#go-btn.btn.btn-primary {:type "button"} "Run Query"])]]]
+          [:div.panel.panel-success
+            [:div.panel-heading
+              [:h3.panel-title "Graph"]]
+            [:div.panel-body
+              [:div#dynamic-graph {:style "width 100%; height:400px;"}]]]
+          [:div.panel.panel-info
+            [:div.panel-heading
+              [:h3.panel-title "Query"]]
+            [:div.panel-body
+              [:pre#query {:style "text-align: left;"}]]]
+          [:div.panel.panel-info
+            [:div.panel-heading
+              [:h3.panel-title "Resuts"]]
+            [:div.panel-body
+              [:pre#results {:style "text-align: left;"}]]]]]]))
 
 (defn instance-view [dbs]
   (html
@@ -115,9 +127,12 @@
       [:body
         (nav-bar)
         (breadcrumbs [["home" "/"]])
-        [:h3 {:style "text-align: center;"} "Select a Database"]
         [:div.container
-          (linked-items (map linkify-db dbs))]]]))
+          [:div.panel.panel-primary
+            [:div.panel-heading
+              [:h3.panel-title "Select a Database"]]
+            [:div.panel-body
+              (linked-items (map linkify-db dbs))]]]]]))
 
 (defn database-view [db colls]
   (html
@@ -126,6 +141,10 @@
       [:body
         (nav-bar)
         (breadcrumbs [["home" "/"] (linkify-db db)])
-        [:h3 {:style "text-align: center;"} "Select a Collection"]
         [:div.container
-          (linked-items (map #(linkify-coll db %) colls))]]]))
+          [:div.panel.panel-primary
+            [:div.panel-heading
+              [:h3.panel-title "Select a Collection"]]
+            [:div.panel-body
+              (linked-items (map #(linkify-coll db %) colls))]]]]]))
+
