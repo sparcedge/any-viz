@@ -1,44 +1,13 @@
-/*h1,
-h2,
-h3,
-h4 {
-  text-transform: uppercase;
-  font-family: proxima-nova, arial, sans-serif;
-  color: #333;
-  font-weight: 400;
-  margin-bottom: 0;
-  margin-top: 1.2em;
-}
-h1 {
-  margin: 0 0 25px 0;
-}
-.navbar {
-  background-color: #302F2F;
-}
-
-.navbar-nav li a {
-  color: #C4C2C3;
-}
-.navbar-brand {
-  font-family: proxima-nova, sans-serif;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: #BDBEC0;
-  font-size: 24px;
-}
-.navbar-brand .threed {
-  font-weight: 100;
-}
-.navbar-brand:hover {
-  color: #ff5900;
-}
-.navbar-brand:hover .threed {
-  color: #12a3ec;
-}
-.panel .panel-primary {
-  background-color: #FFFFFF
-}*/
+/* Specific to any-viz */
 
 body { 
   padding-top: 70px; 
+}
+
+.footer {
+  padding-top: 20px;
+  padding-bottom: 30px;
+  margin-top: 20px;
+  text-align: center;
+  border-top: 1px solid #e5e5e5;
 }

@@ -22,6 +22,10 @@
       [:a.navbar-brand {:href "#"} @g/display-name]
       [:ul.nav.navbar-nav]]])
 
+(defn common-footer []
+  [:div#footer.footer
+    [:div.text-muted "Copyright &copy; 2013, All Rights Reserved"] ])
+
 (def match-operators ["=","!=","<","<=",">",">="])
 (def group-times ["year","month","day","hour","minute"])
 (def reduce-operators ["count","min","max","sum","avg","stdev"])
@@ -114,11 +118,12 @@
 
           [:div.tab-content 
             [:div#graph.tab-pane.active
-              [:div#dynamic-graph {:style "width 100%; height:400px;"}]]
+              [:div#dynamic-graph {:style "width 100%; height:325px;"}]]
             [:div#rawquery.tab-pane
               [:pre#query {:style "text-align: left;"}]]
             [:div#queryresults.tab-pane
-              [:pre#results {:style "text-align: left;"}]]]]]]))
+              [:pre#results {:style "text-align: left;"}]]]]]
+      (common-footer)]))
 
 (defn instance-view [dbs]
   (html
@@ -132,7 +137,8 @@
             [:div.panel-heading
               [:h3.panel-title "Select a Database"]]
             [:div.panel-body
-              (linked-items (map linkify-db dbs))]]]]]))
+              (linked-items (map linkify-db dbs))]]]]
+      (common-footer)]))
 
 (defn database-view [db colls]
   (html
@@ -146,4 +152,5 @@
             [:div.panel-heading
               [:h3.panel-title "Select a Collection"]]
             [:div.panel-body
-              (linked-items (map #(linkify-coll db %) colls))]]]]]))
+              (linked-items (map #(linkify-coll db %) colls))]]]]
+      (common-footer)]))
