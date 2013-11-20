@@ -107,7 +107,7 @@
               [:div.row
                 (wg [:button#go-btn.btn.btn-primary {:type "button"} "Run Query"])]]]
 
-          [:ul.nav.nav-tabs
+          [:ul#query-tabs.nav.nav-tabs.nav-pills
             [:li.active [:a {:href "#graph" :data-toggle "tab"} "Graph"]]
             [:li [:a {:href "#rawquery" :data-toggle "tab"} "Query"]]
             [:li [:a {:href "#queryresults" :data-toggle "tab"} "Results"]]]
@@ -147,4 +147,3 @@
               [:h3.panel-title "Select a Collection"]]
             [:div.panel-body
               (linked-items (map #(linkify-coll db %) colls))]]]]]))
-

@@ -2,6 +2,8 @@ $(function() {
     $("#go-btn").click(function() {
         renderGraph();
     });
+
+    $("#query-tabs").hide();
 });
 
 var buildQuery = function(db, coll) {
@@ -60,14 +62,17 @@ var createGroupedData = function() {
     };
 };
 
+var updateBlock = function(content, selector) {
+    var json = JSON.stringify(content, undefined, 2);
+    $(selector).html(json);
+};
+
 var updateQueryBlock = function(query) {
-    var json = JSON.stringify(query, undefined, 2)
-    $("#query").text(json);
+    updateBlock(query, '#query');
 };
 
 var updateResultsBlock = function(results) {
-    var json = JSON.stringify(results, undefined, 2)
-    $("#results").text(json);
+    updateBlock(results, '#results');
 };
 
 var renderGraph = function() {
@@ -103,7 +108,7 @@ var renderGraph = function() {
                 type: selected($("#graph-type"))
             },
             title: {
-                text: 'Query Results'
+                text: null
             },
             xAxis: {
                 type: 'datetime'
@@ -115,6 +120,8 @@ var renderGraph = function() {
             },
             series: series
         });
+
+        $("#query-tabs").show();
     });
 }
 
