@@ -9,22 +9,24 @@
     [:script {:src "http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"}]
     [:script {:src "/static/bootstrap/js/bootstrap.min.js"}]
     [:script {:src "http://code.highcharts.com/highcharts.js"}]
-    [:link {:href "/static/css/anyviz.css" :rel "stylesheet" :media "screen"}]
+    ; [:link {:href "/static/css/anyviz.css" :rel "stylesheet" :media "screen"}]
+    [:link {:href "/static/bootstrap/css/lavish-theme.css" :rel "stylesheet" :media "screen"}]
     [:script {:src "/static/js/query-builder.js"}]
     [:script {:src "/static/js/turbine.js"}]
     [:script {:src "/static/js/moment.min.js"}]
     extras])
 
 (defn nav-bar []
-  [:div.navbar.navbar-default {:role "navigation"}
-    [:a.navbar-brand {:href "#"} @g/display-name]
-    [:ul.nav.navbar-nav]])
+  [:div.navbar.navbar-inverse.navbar-fixed-top {:role "navigation"}
+    [:div.container
+      [:a.navbar-brand {:href "#"} @g/display-name]
+      [:ul.nav.navbar-nav]]])
 
 (def match-operators ["=","!=","<","<=",">",">="])
 (def group-times ["year","month","day","hour","minute"])
 (def reduce-operators ["count","min","max","sum","avg","stdev"])
 (def date-periods ["all time","last year","last 6 months","last 30 days","last 7 days","last day","last hour"])
-(def graph-types ["spline", "column", "line", "area", "bar", "areaspline", "scatter"])
+(def graph-types ["spline","column","line","area","bar","areaspline","scatter"])
 
 (defn dropdown-item [item]
   [:option {:value item} item])
@@ -76,8 +78,9 @@
       (common-head)
       [:body
         (nav-bar)
-        (breadcrumbs [["home" "/"] (linkify-db db) (linkify-coll db coll)])
         [:div.container
+          [:br][:br][:br]
+          (breadcrumbs [["home" "/"] (linkify-db db) (linkify-coll db coll)])
           [:div.panel.panel-primary
             [:div.panel-heading
               [:h3.panel-title "Query Builder"]]
@@ -126,8 +129,9 @@
       (common-head)
       [:body
         (nav-bar)
-        (breadcrumbs [["home" "/"]])
         [:div.container
+          [:br][:br][:br]
+          (breadcrumbs [["home" "/"]])
           [:div.panel.panel-primary
             [:div.panel-heading
               [:h3.panel-title "Select a Database"]]
@@ -140,8 +144,9 @@
       (common-head)
       [:body
         (nav-bar)
-        (breadcrumbs [["home" "/"] (linkify-db db)])
         [:div.container
+          [:br][:br][:br]
+          (breadcrumbs [["home" "/"] (linkify-db db)])
           [:div.panel.panel-primary
             [:div.panel-heading
               [:h3.panel-title "Select a Collection"]]
