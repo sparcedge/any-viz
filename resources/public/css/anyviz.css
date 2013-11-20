@@ -1,4 +1,4 @@
-h1,
+/*h1,
 h2,
 h3,
 h4 {
@@ -37,4 +37,8 @@ h1 {
 }
 .panel .panel-primary {
   background-color: #FFFFFF
+}*/
+
+body { 
+  padding-top: 70px; 
 }

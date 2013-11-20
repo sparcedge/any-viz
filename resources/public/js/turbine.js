@@ -1,16 +1,15 @@
 var makeQuery = function(db, coll, start, matches, groups, reducers) {
     var json = {
         db: db,
-        coll: coll
+        coll: coll,
+        match: matches,
+        group: groups,
+        reduce: reducers
     };
 
     if(start !== undefined){
         json.start = start;
     }
-
-    json.match = matches;
-    json.group = groups;
-    json.reduce = reducers
 
     return json;
 }

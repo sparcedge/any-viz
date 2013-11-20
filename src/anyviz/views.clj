@@ -9,8 +9,8 @@
     [:script {:src "http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"}]
     [:script {:src "/static/bootstrap/js/bootstrap.min.js"}]
     [:script {:src "http://code.highcharts.com/highcharts.js"}]
-    ; [:link {:href "/static/css/anyviz.css" :rel "stylesheet" :media "screen"}]
     [:link {:href "/static/bootstrap/css/lavish-theme.css" :rel "stylesheet" :media "screen"}]
+    [:link {:href "/static/css/anyviz.css" :rel "stylesheet" :media "screen"}]
     [:script {:src "/static/js/query-builder.js"}]
     [:script {:src "/static/js/turbine.js"}]
     [:script {:src "/static/js/moment.min.js"}]
@@ -79,11 +79,10 @@
       [:body
         (nav-bar)
         [:div.container
-          [:br][:br][:br]
           (breadcrumbs [["home" "/"] (linkify-db db) (linkify-coll db coll)])
           [:div.panel.panel-primary
             [:div.panel-heading
-              [:h3.panel-title "Query Builder"]]
+              [:h3.panel-title "Builder"]]
             [:div.panel-body
               [:div.row
                 (wg [:label "Match: "])
@@ -107,20 +106,18 @@
                 (wg (dropdown graph-types "graph-type"))] 
               [:div.row
                 (wg [:button#go-btn.btn.btn-primary {:type "button"} "Run Query"])]]]
-          [:div.panel.panel-success
-            [:div.panel-heading
-              [:h3.panel-title "Graph"]]
-            [:div.panel-body
-              [:div#dynamic-graph {:style "width 100%; height:400px;"}]]]
-          [:div.panel.panel-info
-            [:div.panel-heading
-              [:h3.panel-title "Query"]]
-            [:div.panel-body
-              [:pre#query {:style "text-align: left;"}]]]
-          [:div.panel.panel-info
-            [:div.panel-heading
-              [:h3.panel-title "Resuts"]]
-            [:div.panel-body
+
+          [:ul.nav.nav-tabs
+            [:li.active [:a {:href "#graph" :data-toggle "tab"} "Graph"]]
+            [:li [:a {:href "#rawquery" :data-toggle "tab"} "Query"]]
+            [:li [:a {:href "#queryresults" :data-toggle "tab"} "Results"]]]
+
+          [:div.tab-content 
+            [:div#graph.tab-pane.active
+              [:div#dynamic-graph {:style "width 100%; height:400px;"}]]
+            [:div#rawquery.tab-pane
+              [:pre#query {:style "text-align: left;"}]]
+            [:div#queryresults.tab-pane
               [:pre#results {:style "text-align: left;"}]]]]]]))
 
 (defn instance-view [dbs]
@@ -130,7 +127,6 @@
       [:body
         (nav-bar)
         [:div.container
-          [:br][:br][:br]
           (breadcrumbs [["home" "/"]])
           [:div.panel.panel-primary
             [:div.panel-heading
@@ -145,7 +141,6 @@
       [:body
         (nav-bar)
         [:div.container
-          [:br][:br][:br]
           (breadcrumbs [["home" "/"] (linkify-db db)])
           [:div.panel.panel-primary
             [:div.panel-heading
