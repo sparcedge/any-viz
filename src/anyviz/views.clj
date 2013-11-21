@@ -104,10 +104,10 @@
             [:div.panel-body
               [:form.form-horizontal {:role "form"}
                 [:div.form-group
-                  [:label.col-sm-2.control-label {:for "group-times"} "Group time by"]
-                  (wg4 (dropdown group-times "group-times"))
                   [:label.col-sm-2.control-label {:for "date-period"} "Over the range"]
-                  (wg4 (dropdown date-periods "date-period"))]
+                  (wg4 (dropdown date-periods "date-period"))
+                  [:label.col-sm-2.control-label {:for "group-times"} "Group time by"]
+                  (wg4 (dropdown group-times "group-times"))]
 
                 [:div.form-group
                   [:label.col-sm-2.control-label {:for "match-entities"} "Match where"]
@@ -142,7 +142,7 @@
 
           [:div.tab-content 
             [:div#graph.tab-pane.active
-              [:div#dynamic-graph {:style "width 100%; height:325px;"}]]
+              [:div#dynamic-graph {:style "width 100%; height:600px;"}]]
             [:div#rawquery.tab-pane
               [:pre#query {:style "text-align: left;"}]]
             [:div#queryresults.tab-pane
