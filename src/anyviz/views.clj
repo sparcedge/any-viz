@@ -24,7 +24,7 @@
 
 (defn common-footer []
   [:div#footer.footer
-    [:div.text-muted "Copyright &copy; 2013, All Rights Reserved"] ])
+    [:div.text-muted "Copyright &copy; 2013, All Rights Reserved"]])
 
 (def match-operators ["=","!=","<","<=",">",">="])
 (def group-times ["year","month","day","hour","minute"])
@@ -78,7 +78,7 @@
   [:div.form-group el extras])
 
 (defn ctl [el cols]
-  [:div {:class (nth bs-columns cols)} el])
+  [:div {:class (nth bs-columns (- cols 1))} el])
 
 (defn query-builder [db coll segments]
   (html
@@ -101,27 +101,27 @@
                   (label "Over the range" "date-period")
                   (ctl (dropdown date-periods "date-period") 4)
                   (label "Group time by" "group-times")
-                  (clt (dropdown group-times "group-times") 4))
+                  (ctl (dropdown group-times "group-times") 4))
 
                 (group
                   (label "Match where" "match-entities")
-                  (clt (dropdown segments "none" "match-entities") 4)
-                  (clt (dropdown match-operators "none" "match-ops") 2)
-                  (clt (input "value") 4))
+                  (ctl (dropdown segments "none" "match-entities") 4)
+                  (ctl (dropdown match-operators "none" "match-ops") 2)
+                  (ctl (input "value") 4))
 
                 (group
                   (label "Group results by" "group-entities")
-                  (clt (dropdown segments "none" "group-entities") 10))
+                  (ctl (dropdown segments "none" "group-entities") 10))
 
                 (group
                   (label "Aggregate" "reduce-entities")
-                  (clt (dropdown segments "reduce-entities") 4)
+                  (ctl (dropdown segments "reduce-entities") 4)
                   (label "Over the statistic" "reduce-ops")
-                  (clt (dropown reduce-operators "reduce-ops") 4))
+                  (ctl (dropdown reduce-operators "reduce-ops") 4))
 
                 (group
                   (label "Display results as" "graph-type")
-                  (clt (dropdown graph-types "graph-type") 10))
+                  (ctl (dropdown graph-types "graph-type") 10))
 
                 [:div.form-group
                   [:div.col-sm-10.col-sm-offset-2
@@ -140,8 +140,8 @@
             [:div#rawquery.tab-pane
               [:pre#query {:style "text-align: left;"}]]
             [:div#queryresults.tab-pane
-              [:pre#results {:style "text-align: left;"}]]]]]
-      (common-footer)]))
+              [:pre#results {:style "text-align: left;"}]]]]
+        (common-footer)]]))
 
 (defn instance-view [dbs]
   (html
@@ -155,8 +155,8 @@
             [:div.panel-heading
               [:h3.panel-title "Select a Database"]]
             [:div.panel-body
-              (linked-items (map linkify-db dbs))]]]]
-      (common-footer)]))
+              (linked-items (map linkify-db dbs))]]]
+        (common-footer)]]))
 
 (defn database-view [db colls]
   (html
@@ -170,5 +170,5 @@
             [:div.panel-heading
               [:h3.panel-title "Select a Collection"]]
             [:div.panel-body
-              (linked-items (map #(linkify-coll db %) colls))]]]]
-      (common-footer)]))
+              (linked-items (map #(linkify-coll db %) colls))]]]
+        (common-footer)]]))
