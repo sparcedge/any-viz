@@ -31,6 +31,7 @@
 (def reduce-operators ["count","min","max","sum","avg","stdev"])
 (def date-periods ["all time","last year","last 6 months","last 30 days","last 7 days","last day","last hour"])
 (def graph-types ["spline","column","line","area","bar","areaspline","scatter"])
+(def bs-columns ["col-sm-1","col-sm-2","col-sm-3","col-sm-4","col-sm-5","col-sm-6","col-sm-7","col-sm-8","col-sm-9","col-sm-10","col-sm-11","col-sm-12"])
 
 (defn dropdown-item [item]
   [:option {:value item} item])
@@ -70,23 +71,14 @@
 (defn input [label]
   [:input#match-val.query-input.form-control {:type "text" :placeholder label}])
 
-(defn wg4 [el & extras]
-  [:div.col-sm-4 el])
+(defn label [label target]
+  [:label.col-sm-2.control-label {:for target} label])
 
-(defn wg3 [el & extras]
-  [:div.col-sm-3 el])
+(defn group [el & extras]
+  [:div.form-group el extras])
 
-(defn wg2 [el & extras]
-  [:div.col-sm-2 el])
-
-(defn wg10 [el & extras]
-  [:div.col-sm-10 el])
-
-(defn wg5 [el & extras]
-  [:div.col-sm-5 el])
-
-(defn el-header [txt]
-  [:h3 {:style "float: none; margin-left: auto; margin-right: auto;"} txt])
+(defn ctl [el cols]
+  [:div {:class (nth bs-columns cols)} el])
 
 (defn query-builder [db coll segments]
   (html
@@ -102,32 +94,34 @@
               [:h3.panel-title "Builder"]]
 
             [:div.panel-body
+
               [:form.form-horizontal {:role "form"}
-                [:div.form-group
-                  [:label.col-sm-2.control-label {:for "date-period"} "Over the range"]
-                  (wg4 (dropdown date-periods "date-period"))
-                  [:label.col-sm-2.control-label {:for "group-times"} "Group time by"]
-                  (wg4 (dropdown group-times "group-times"))]
 
-                [:div.form-group
-                  [:label.col-sm-2.control-label {:for "match-entities"} "Match where"]
-                  (wg4 (dropdown segments "none" "match-entities"))
-                  (wg2 (dropdown match-operators "none" "match-ops"))
-                  (wg4 (input "value"))]
+                (group
+                  (label "Over the range" "date-period")
+                  (ctl (dropdown date-periods "date-period") 4)
+                  (label "Group time by" "group-times")
+                  (clt (dropdown group-times "group-times") 4))
 
-                [:div.form-group
-                  [:label.col-sm-2.control-label {:for "group-entities"} "Group results by"]
-                  (wg10 (dropdown segments "none" "group-entities"))]
+                (group
+                  (label "Match where" "match-entities")
+                  (clt (dropdown segments "none" "match-entities") 4)
+                  (clt (dropdown match-operators "none" "match-ops") 2)
+                  (clt (input "value") 4))
 
-                [:div.form-group
-                  [:label.col-sm-2.control-label {:for "reduce-entities"} "Aggregate"]
-                  (wg4 (dropdown segments "reduce-entities"))
-                  [:label.col-sm-2.control-label {:for "reduce-ops"} "Over the statistic"]
-                  (wg4 (dropdown reduce-operators "reduce-ops"))]
+                (group
+                  (label "Group results by" "group-entities")
+                  (clt (dropdown segments "none" "group-entities") 10))
 
-                [:div.form-group
-                  [:label.col-sm-2.control-label {:for "graph-type"} "Display results as"]
-                  (wg10 (dropdown graph-types "graph-type"))]
+                (group
+                  (label "Aggregate" "reduce-entities")
+                  (clt (dropdown segments "reduce-entities") 4)
+                  (label "Over the statistic" "reduce-ops")
+                  (clt (dropown reduce-operators "reduce-ops") 4))
+
+                (group
+                  (label "Display results as" "graph-type")
+                  (clt (dropdown graph-types "graph-type") 10))
 
                 [:div.form-group
                   [:div.col-sm-10.col-sm-offset-2
