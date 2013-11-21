@@ -111,7 +111,7 @@
 
                 (group
                   (label "Group results by" "group-entities")
-                  (ctl (dropdown segments "none" "group-entities") 10))
+                  (ctl (dropdown segments "none" "group-entities") 4))
 
                 (group
                   (label "Aggregate" "reduce-entities")
@@ -121,7 +121,7 @@
 
                 (group
                   (label "Display results as" "graph-type")
-                  (ctl (dropdown graph-types "graph-type") 10))
+                  (ctl (dropdown graph-types "graph-type") 4))
 
                 [:div.form-group
                   [:div.col-sm-10.col-sm-offset-2
