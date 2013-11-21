@@ -70,8 +70,8 @@
 (defn input [label]
   [:input#match-val.query-input.form-control {:type "text" :placeholder label}])
 
-(defn wg [el]
-  [:div.col-lg-2 el])
+(defn wg [el & extras]
+  [:div.col-md-3 el])
 
 (defn el-header [txt]
   [:h3 {:style "float: none; margin-left: auto; margin-right: auto;"} txt])
@@ -109,7 +109,9 @@
                 (wg [:label "Graph Type"])
                 (wg (dropdown graph-types "graph-type"))] 
               [:div.row
-                (wg [:button#go-btn.btn.btn-primary {:type "button"} "Run Query"])]]]
+                [:div.col-md-3 
+                  [:button#go-btn.btn.btn-primary {:type "button"} "Run Query"]
+                  [:button#clear-btn.btn.btn-default {:type "button"} "Clear Query"]]]]]
 
           [:ul#query-tabs.nav.nav-tabs.nav-pills
             [:li.active [:a {:href "#graph" :data-toggle "tab"} "Graph"]]

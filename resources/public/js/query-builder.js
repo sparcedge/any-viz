@@ -3,7 +3,12 @@ $(function() {
         renderGraph();
     });
 
+    $("#clear-btn").click(function() {
+        location.reload();
+    });
+
     $("#query-tabs").hide();
+    $("#clear-btn").hide();
 });
 
 var buildQuery = function(db, coll) {
@@ -122,6 +127,7 @@ var renderGraph = function() {
         });
 
         $("#query-tabs").show();
+        $("#clear-btn").show();
     });
 }
 
