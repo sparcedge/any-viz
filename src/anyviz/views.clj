@@ -70,8 +70,20 @@
 (defn input [label]
   [:input#match-val.query-input.form-control {:type "text" :placeholder label}])
 
-(defn wg [el & extras]
-  [:div.col-md-3 el])
+(defn wg4 [el & extras]
+  [:div.col-sm-4 el])
+
+(defn wg3 [el & extras]
+  [:div.col-sm-3 el])
+
+(defn wg2 [el & extras]
+  [:div.col-sm-2 el])
+
+(defn wg10 [el & extras]
+  [:div.col-sm-10 el])
+
+(defn wg5 [el & extras]
+  [:div.col-sm-5 el])
 
 (defn el-header [txt]
   [:h3 {:style "float: none; margin-left: auto; margin-right: auto;"} txt])
@@ -85,33 +97,43 @@
         [:div.container
           (breadcrumbs [["home" "/"] (linkify-db db) (linkify-coll db coll)])
           [:div.panel.panel-primary
+            
             [:div.panel-heading
               [:h3.panel-title "Builder"]]
+
             [:div.panel-body
-              [:div.row
-                (wg [:label "Match: "])
-                (wg (dropdown segments "none" "match-entities"))
-                (wg (dropdown match-operators "none" "match-ops"))
-                (wg (input "value"))]
-              [:div.row
-                (wg [:label "Group (Segment)"])
-                (wg (dropdown segments "none" "group-entities"))
-                (wg [:label "Group (Time)"])
-                (wg (dropdown group-times "group-times"))]
-              [:div.row
-                (wg [:label "Reduce"])
-                (wg (dropdown segments "reduce-entities"))
-                (wg (dropdown reduce-operators "reduce-ops"))]
-              [:div.row
-                (wg [:label "Period"])
-                (wg (dropdown date-periods "date-period"))]
-              [:div.row
-                (wg [:label "Graph Type"])
-                (wg (dropdown graph-types "graph-type"))] 
-              [:div.row
-                [:div.col-md-3 
-                  [:button#go-btn.btn.btn-primary {:type "button"} "Run Query"]
-                  [:button#clear-btn.btn.btn-default {:type "button"} "Clear Query"]]]]]
+              [:form.form-horizontal {:role "form"}
+                [:div.form-group
+                  [:label.col-sm-2.control-label {:for "group-times"} "Group time by"]
+                  (wg4 (dropdown group-times "group-times"))
+                  [:label.col-sm-2.control-label {:for "date-period"} "Over the range"]
+                  (wg4 (dropdown date-periods "date-period"))]
+
+                [:div.form-group
+                  [:label.col-sm-2.control-label {:for "match-entities"} "Match where"]
+                  (wg4 (dropdown segments "none" "match-entities"))
+                  (wg2 (dropdown match-operators "none" "match-ops"))
+                  (wg4 (input "value"))]
+
+                [:div.form-group
+                  [:label.col-sm-2.control-label {:for "group-entities"} "Group results by"]
+                  (wg10 (dropdown segments "none" "group-entities"))]
+
+                [:div.form-group
+                  [:label.col-sm-2.control-label {:for "reduce-entities"} "Aggregate"]
+                  (wg4 (dropdown segments "reduce-entities"))
+                  [:label.col-sm-2.control-label {:for "reduce-ops"} "Over the statistic"]
+                  (wg4 (dropdown reduce-operators "reduce-ops"))]
+
+                [:div.form-group
+                  [:label.col-sm-2.control-label {:for "graph-type"} "Display results as"]
+                  (wg10 (dropdown graph-types "graph-type"))]
+
+                [:div.form-group
+                  [:div.col-sm-10.col-sm-offset-2
+                    [:button#go-btn.btn.btn-primary {:type "button"} "Run Query"]
+                    "&nbsp;"
+                    [:button#clear-btn.btn.btn-default {:type "button"} "Clear Query"]]]]]]
 
           [:ul#query-tabs.nav.nav-tabs.nav-pills
             [:li.active [:a {:href "#graph" :data-toggle "tab"} "Graph"]]
