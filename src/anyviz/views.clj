@@ -5,6 +5,7 @@
 (defn common-head [& extras]
   [:head
     [:title @g/display-name]
+    [:meta {:name "viewport" :content "width=device-width, initial-scale=1.0"}]
     [:link {:href "/static/bootstrap/css/bootstrap.min.css" :rel "stylesheet" :media "screen"}]
     [:script {:src "http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"}]
     [:script {:src "/static/bootstrap/js/bootstrap.min.js"}]
@@ -91,40 +92,31 @@
         [:div.container
           (breadcrumbs [["home" "/"] (linkify-db db) (linkify-coll db coll)])
           [:div.panel.panel-primary
-            
             [:div.panel-heading
               [:h3.panel-title "Builder"]]
-
             [:div.panel-body
-
               [:form.form-horizontal {:role "form"}
-
                 (group
                   (label "Over the range" "date-period")
                   (ctl (dropdown date-periods "date-period"))
                   (label "Group time by" "group-times")
                   (ctl (dropdown group-times "group-times")))
-
                 (group
                   (label "Match where" "match-entities")
                   (ctl (dropdown segments "none" "match-entities"))
                   (ctl (dropdown match-operators "none" "match-ops") 2)
                   (ctl (input "value")))
-
                 (group
                   (label "Group results by" "group-entities")
                   (ctl (dropdown segments "none" "group-entities")))
-
                 (group
                   (label "Aggregate" "reduce-entities")
                   (ctl (dropdown segments "reduce-entities"))
                   (label "Over the statistic" "reduce-ops")
                   (ctl (dropdown reduce-operators "reduce-ops")))
-
                 (group
                   (label "Display results as" "graph-type")
                   (ctl (dropdown graph-types "graph-type")))
-
                 [:div.form-group
                   [:div.col-sm-10.col-sm-offset-2
                     [:button#go-btn.btn.btn-primary {:type "button"} "Run Query"]
