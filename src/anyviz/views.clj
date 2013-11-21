@@ -77,8 +77,10 @@
 (defn group [el & extras]
   [:div.form-group el extras])
 
-(defn ctl [el cols]
-  [:div {:class (nth bs-columns (- cols 1))} el])
+(defn ctl 
+  ([el] (ctl el 4))
+  ([el col] 
+    [:div {:class (nth bs-columns (- col 1))} el]))
 
 (defn query-builder [db coll segments]
   (html
@@ -99,29 +101,29 @@
 
                 (group
                   (label "Over the range" "date-period")
-                  (ctl (dropdown date-periods "date-period") 4)
+                  (ctl (dropdown date-periods "date-period"))
                   (label "Group time by" "group-times")
-                  (ctl (dropdown group-times "group-times") 4))
+                  (ctl (dropdown group-times "group-times")))
 
                 (group
                   (label "Match where" "match-entities")
-                  (ctl (dropdown segments "none" "match-entities") 4)
+                  (ctl (dropdown segments "none" "match-entities"))
                   (ctl (dropdown match-operators "none" "match-ops") 2)
-                  (ctl (input "value") 4))
+                  (ctl (input "value")))
 
                 (group
                   (label "Group results by" "group-entities")
-                  (ctl (dropdown segments "none" "group-entities") 4))
+                  (ctl (dropdown segments "none" "group-entities")))
 
                 (group
                   (label "Aggregate" "reduce-entities")
-                  (ctl (dropdown segments "reduce-entities") 4)
+                  (ctl (dropdown segments "reduce-entities"))
                   (label "Over the statistic" "reduce-ops")
-                  (ctl (dropdown reduce-operators "reduce-ops") 4))
+                  (ctl (dropdown reduce-operators "reduce-ops")))
 
                 (group
                   (label "Display results as" "graph-type")
-                  (ctl (dropdown graph-types "graph-type") 4))
+                  (ctl (dropdown graph-types "graph-type")))
 
                 [:div.form-group
                   [:div.col-sm-10.col-sm-offset-2
