@@ -23,6 +23,11 @@
       [:a.navbar-brand {:href "#"} @g/brand-name]
       [:ul.nav.navbar-nav]]])
 
+(defn jumbotron [title sub-title]
+  [:div.jumbotron
+    [:h1 title]
+    [:p sub-title]])
+
 (defn common-footer []
   [:div#footer.footer
     [:div.text-muted "Copyright &copy; 2013 " @g/brand-name ". All Rights Reserved"]])
@@ -145,6 +150,7 @@
         (nav-bar)
         [:div.container
           (breadcrumbs [["home" "/"]])
+          (jumbotron (str "Welcome to " @g/brand-name "!") "Step 1 is to get started please select a database from the list below")
           [:div.panel.panel-primary
             [:div.panel-heading
               [:h3.panel-title "Select a Database"]]
@@ -160,9 +166,14 @@
         (nav-bar)
         [:div.container
           (breadcrumbs [["home" "/"] (linkify-db db)])
+          (jumbotron "Almost there!" "Step 2 is to select a collection from the list below")
           [:div.panel.panel-primary
             [:div.panel-heading
               [:h3.panel-title "Select a Collection"]]
             [:div.panel-body
               (linked-items (map #(linkify-coll db %) colls))]]]
         (common-footer)]]))
+
+
+
+
