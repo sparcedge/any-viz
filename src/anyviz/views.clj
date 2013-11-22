@@ -4,7 +4,7 @@
 
 (defn common-head [& extras]
   [:head
-    [:title @g/display-name]
+    [:title @g/brand-name]
     [:meta {:name "viewport" :content "width=device-width, initial-scale=1.0"}]
     [:link {:href "/static/bootstrap/css/bootstrap.min.css" :rel "stylesheet" :media "screen"}]
     [:script {:src "http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"}]
@@ -20,12 +20,12 @@
 (defn nav-bar []
   [:div.navbar.navbar-inverse.navbar-fixed-top {:role "navigation"}
     [:div.container
-      [:a.navbar-brand {:href "#"} @g/display-name]
+      [:a.navbar-brand {:href "#"} @g/brand-name]
       [:ul.nav.navbar-nav]]])
 
 (defn common-footer []
   [:div#footer.footer
-    [:div.text-muted "Copyright &copy; 2013, All Rights Reserved"]])
+    [:div.text-muted "Copyright &copy; 2013 " @g/brand-name ". All Rights Reserved"]])
 
 (def match-operators ["=","!=","<","<=",">",">="])
 (def group-times ["year","month","day","hour","minute"])
