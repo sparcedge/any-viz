@@ -34,7 +34,7 @@
 
 (def match-operators ["=","!=","<","<=",">",">="])
 (def group-times ["year","month","day","hour","minute"])
-(def reduce-operators ["count","min","max","sum","avg","stdev","range"])
+(def reduce-operators ["count","min","max","sum","avg","stdev","range","variance"])
 (def date-periods ["all time","last year","last 6 months","last 30 days","last 7 days","last day","last hour"])
 (def graph-types ["spline","column","line","area","bar","areaspline","scatter"])
 (def bs-columns ["col-sm-1","col-sm-2","col-sm-3","col-sm-4","col-sm-5","col-sm-6","col-sm-7","col-sm-8","col-sm-9","col-sm-10","col-sm-11","col-sm-12"])
