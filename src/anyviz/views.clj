@@ -10,6 +10,7 @@
     [:script {:src "http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"}]
     [:script {:src "/static/bootstrap/js/bootstrap.min.js"}]
     [:script {:src "http://code.highcharts.com/highcharts.js"}]
+    [:script {:src "http://code.highcharts.com/modules/exporting.js"}]
     [:link {:href "/static/bootstrap/css/lavish-theme.css" :rel "stylesheet" :media "screen"}]
     [:link {:href "/static/css/anyviz.css" :rel "stylesheet" :media "screen"}]
     [:script {:src "/static/js/query-builder.js"}]
