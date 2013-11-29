@@ -125,9 +125,9 @@
                   (ctl (dropdown graph-types "graph-type")))
                 [:div.form-group
                   [:div.col-sm-10.col-sm-offset-2
-                    [:button#go-btn.btn.btn-primary {:type "button"} "Run Query"]
+                    [:button#go-btn.btn.btn-primary {:type "button"} "Add Series"]
                     "&nbsp;"
-                    [:button#clear-btn.btn.btn-default {:type "button"} "Clear Query"]]]]]]
+                    [:button#clear-btn.btn.btn-default {:type "button"} "Clear Graph"]]]]]]
 
           [:ul#query-tabs.nav.nav-tabs.nav-pills
             [:li.active [:a {:href "#graph" :data-toggle "tab"} "Graph"]]

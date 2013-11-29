@@ -4,12 +4,46 @@ $(function() {
     });
 
     $("#clear-btn").click(function() {
-        location.reload();
+        $('#dynamic-graph').highcharts().destroy();
+        initGraphPage();
     });
 
-    $("#query-tabs").hide();
-    $("#clear-btn").hide();
+    initGraphPage();
 });
+
+var initGraphPage = function() {
+    // initial/default chart options
+    $('#dynamic-graph').highcharts({
+        chart: {
+            zoomType: 'x'
+        },
+        title: {
+            text: null
+        },
+        xAxis: {
+            type: 'datetime'
+        },
+        yAxis: {
+            title: {
+                text: "Results"
+            }
+        }
+    });
+
+    hideGraphTabs(true);
+}
+
+var hideGraphTabs = function(hide) {
+    if(hide){
+        $('#dynamic-graph').hide();
+        $("#query-tabs").hide();
+        $("#clear-btn").hide();        
+    } else {
+        $('#dynamic-graph').show();
+        $("#query-tabs").show();
+        $("#clear-btn").show();
+    }
+}
 
 var buildQuery = function(db, coll) {
     var start = getStartDate();
@@ -82,13 +116,12 @@ var updateResultsBlock = function(results) {
 
 var renderGraph = function() {
     var pathArray = window.location.pathname.split('/')
-        db = pathArray[2]
-        coll = pathArray[3]
-        query = buildQuery(db, coll);
-        
-        console.log(query);
-        $.getJSON('/query?q='+encodeURIComponent(query), function(res) {  
-        console.log(res);      
+    db = pathArray[2]
+    coll = pathArray[3]
+    query = buildQuery(db, coll);
+
+    $.getJSON('/query?q='+encodeURIComponent(query), function(res) {  
+
         var series;
         var data = res.results;
         var query = res.query;
@@ -96,38 +129,21 @@ var renderGraph = function() {
         updateQueryBlock(query);
         updateResultsBlock(data);
 
+        var chart = $('#dynamic-graph').highcharts();
+
         if(selected($("#group-entities")) === "none") {
             series = [{
-                name: "Results", 
+                name: selected($("#reduce-entities")) + ":" + selected($("#reduce-ops")) + "/" + selected($("#group-times")), 
+                type: selected($("#graph-type")),
                 data: data.map(createTimeData())
             }];
         } else {
             series = data.map(createGroupedData());
         }
-        
-        console.log(series);
+         
+        chart.addSeries(series[0]);
 
-        $('#dynamic-graph').highcharts({
-            chart: {
-                zoomType: 'x',
-                type: selected($("#graph-type"))
-            },
-            title: {
-                text: null
-            },
-            xAxis: {
-                type: 'datetime'
-            },
-            yAxis: {
-                title: {
-                    text: 'Results'
-                }
-            },
-            series: series
-        });
-
-        $("#query-tabs").show();
-        $("#clear-btn").show();
+        hideGraphTabs(false);
     });
 }
 
