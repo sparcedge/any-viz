@@ -27,7 +27,8 @@
 (defroutes routes
   (GET "/alo" [] "alo guvna")
   (GET "/query" {params :params} (-> params query-turbine json/generate-string))
-  (GET "/" [] (v/instance-view (t/get-databases)))
+  (GET "/" [] (v/welcome-view))
+  (GET "/db" [] (v/instance-view (t/get-databases)))
   (GET "/db/:db" [db] (v/database-view db (t/get-collections db)))
   (GET "/db/:db/:coll" [db coll] (v/query-builder db coll (t/get-segments db coll)))
   (route/resources "/static/"))

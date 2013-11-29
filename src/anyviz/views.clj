@@ -89,6 +89,50 @@
   ([el col] 
     [:div {:class (nth bs-columns (- col 1))} el]))
 
+(defn welcome-view []
+  (html
+    [:html
+      (common-head)
+      [:body
+        (nav-bar)
+        [:div.container
+          (breadcrumbs [["home" "/"]])
+          (jumbotron (str "Welcome to " @g/brand-name "!") "An interface to allow you to easily and quickly visualize and explore your TurbineDB data.")
+          [:a.btn.btn-primary {:href "/db"} "Let's get started..."]
+        (common-footer)]]]))
+
+(defn instance-view [dbs]
+  (html
+    [:html
+      (common-head)
+      [:body
+        (nav-bar)
+        [:div.container
+          (breadcrumbs [["home" "/"] ["db" "/db"]])
+          (jumbotron "Step 1" "First we need to select a database from which to begin exploring.")
+          [:div.panel.panel-primary
+            [:div.panel-heading
+              [:h3.panel-title "Select a Database"]]
+            [:div.panel-body
+              (linked-items (map linkify-db dbs))]]]
+        (common-footer)]]))
+
+(defn database-view [db colls]
+  (html
+    [:html
+      (common-head)
+      [:body
+        (nav-bar)
+        [:div.container
+          (breadcrumbs [["home" "/"] ["db" "/db"] (linkify-db db)])
+          (jumbotron "Step 2" "Next we need to select a collection to interrogate.")
+          [:div.panel.panel-primary
+            [:div.panel-heading
+              [:h3.panel-title "Select a Collection"]]
+            [:div.panel-body
+              (linked-items (map #(linkify-coll db %) colls))]]]
+        (common-footer)]]))
+
 (defn query-builder [db coll segments]
   (html
     [:html
@@ -96,7 +140,7 @@
       [:body
         (nav-bar)
         [:div.container
-          (breadcrumbs [["home" "/"] (linkify-db db) (linkify-coll db coll)])
+          (breadcrumbs [["home" "/"] ["db" "/db"] (linkify-db db) (linkify-coll db coll)])
           [:div.panel.panel-primary
             [:div.panel-heading
               [:h3.panel-title "Builder"]]
@@ -136,39 +180,3 @@
             [:div#graph.tab-pane.active
               [:div#dynamic-graph {:style "width 100%; height:600px;"}]]]]
         (common-footer)]]))
-
-(defn instance-view [dbs]
-  (html
-    [:html
-      (common-head)
-      [:body
-        (nav-bar)
-        [:div.container
-          (breadcrumbs [["home" "/"]])
-          (jumbotron (str "Welcome to " @g/brand-name "!") "Step 1 is to get started please select a database from the list below")
-          [:div.panel.panel-primary
-            [:div.panel-heading
-              [:h3.panel-title "Select a Database"]]
-            [:div.panel-body
-              (linked-items (map linkify-db dbs))]]]
-        (common-footer)]]))
-
-(defn database-view [db colls]
-  (html
-    [:html
-      (common-head)
-      [:body
-        (nav-bar)
-        [:div.container
-          (breadcrumbs [["home" "/"] (linkify-db db)])
-          (jumbotron "Almost there!" "Step 2 is to select a collection from the list below")
-          [:div.panel.panel-primary
-            [:div.panel-heading
-              [:h3.panel-title "Select a Collection"]]
-            [:div.panel-body
-              (linked-items (map #(linkify-coll db %) colls))]]]
-        (common-footer)]]))
-
-
-
-
