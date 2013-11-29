@@ -35,7 +35,7 @@
 
 (def match-operators ["=","!=","<","<=",">",">="])
 (def group-times ["year","month","day","hour","minute"])
-(def reduce-operators ["count","min","max","sum","avg","harmonicmean","stdev","variance","range"])
+(def reduce-operators ["max","min","avg","harmonicmean","count","sum","variance","stdev","range"])
 (def date-periods ["all time","last year","last 6 months","last 30 days","last 7 days","last day","last hour"])
 (def graph-types ["spline","column","line","area","bar","areaspline","scatter"])
 (def bs-columns ["col-sm-1","col-sm-2","col-sm-3","col-sm-4","col-sm-5","col-sm-6","col-sm-7","col-sm-8","col-sm-9","col-sm-10","col-sm-11","col-sm-12"])
@@ -130,17 +130,11 @@
                     [:button#clear-btn.btn.btn-default {:type "button"} "Clear Graph"]]]]]]
 
           [:ul#query-tabs.nav.nav-tabs.nav-pills
-            [:li.active [:a {:href "#graph" :data-toggle "tab"} "Graph"]]
-            [:li [:a {:href "#rawquery" :data-toggle "tab"} "Query"]]
-            [:li [:a {:href "#queryresults" :data-toggle "tab"} "Results"]]]
+            [:li.active [:a {:href "#graph" :data-toggle "tab"} "Graph"]]]
 
-          [:div.tab-content 
+          [:div#tab-content.tab-content 
             [:div#graph.tab-pane.active
-              [:div#dynamic-graph {:style "width 100%; height:600px;"}]]
-            [:div#rawquery.tab-pane
-              [:pre#query {:style "text-align: left;"}]]
-            [:div#queryresults.tab-pane
-              [:pre#results {:style "text-align: left;"}]]]]
+              [:div#dynamic-graph {:style "width 100%; height:600px;"}]]]]
         (common-footer)]]))
 
 (defn instance-view [dbs]

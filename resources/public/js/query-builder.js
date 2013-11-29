@@ -4,12 +4,27 @@ $(function() {
     });
 
     $("#clear-btn").click(function() {
-        $('#dynamic-graph').highcharts().destroy();
-        initGraphPage();
+        location.reload();
     });
 
     initGraphPage();
 });
+
+var addSeriesTab = function(id, label, query, results){
+    $('#query-tabs').append('<li><a href="#'+id+'" data-toggle="tab">'+label+'</a></li>');
+    $('#tab-content').append(
+        '<div class="tab-pane" id="'+id+'">' + 
+            '<div class="panel">' + 
+                '<div class="panel-heading"><h3 class="panel-title">Query</h3></div>' + 
+                '<div class="panel-body"><pre>'+JSON.stringify(query, undefined, 2)+'</pre></div>' + 
+            '</div>' + 
+            '<div class="panel">' + 
+                '<div class="panel-heading"><h3 class="panel-title">Results</h3></div>' + 
+                '<div class="panel-body"><pre>'+JSON.stringify(results, undefined, 2)+'</pre></div>' + 
+            '</div>' + 
+        '</div>');
+    $('#query-tabs a:first').tab('show');
+}
 
 var initGraphPage = function() {
     // initial/default chart options
@@ -125,15 +140,13 @@ var renderGraph = function() {
         var series;
         var data = res.results;
         var query = res.query;
-
-        updateQueryBlock(query);
-        updateResultsBlock(data);
-
+        var name = selected($("#reduce-entities")) + ":" + selected($("#reduce-ops")) + "/" + selected($("#group-times"));
         var chart = $('#dynamic-graph').highcharts();
+        var newTabName = 'Series' + chart.series.length;
 
         if(selected($("#group-entities")) === "none") {
             series = [{
-                name: selected($("#reduce-entities")) + ":" + selected($("#reduce-ops")) + "/" + selected($("#group-times")), 
+                name: name, 
                 type: selected($("#graph-type")),
                 data: data.map(createTimeData())
             }];
@@ -142,8 +155,8 @@ var renderGraph = function() {
         }
          
         chart.addSeries(series[0]);
-
         hideGraphTabs(false);
+        addSeriesTab(newTabName, name, query, data);
     });
 }
 
