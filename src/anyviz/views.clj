@@ -31,7 +31,7 @@
 
 (defn common-footer []
   [:div#footer.footer
-    [:div.text-muted "Copyright &copy; 2014 " @g/brand-name ". All Rights Reserved"]])
+    [:div.text-muted "Copyright &copy; 2014 " @g/company-name ". All Rights Reserved"]])
 
 (def match-operators ["=","!=","<","<=",">",">="])
 (def group-times ["year","month","day","hour","minute"])
