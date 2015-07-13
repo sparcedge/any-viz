@@ -29,6 +29,10 @@ $ java -jar ./target/anyviz-0.1.0-SNAPSHOT-standalone.jar
 So, just load your browser and navigate to the server and port on which it's listening.
 
 ## Configuration
+
+A default [configuration file](resources/config.json) is supplied which you can tune to your needs.  
+This is what it looks like for reference:
+
 ```sh
 {
   "mode": "dev", // dev, prod
