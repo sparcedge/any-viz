@@ -19,7 +19,7 @@ var createMatch = function(entity, op, value) {
     matchOp[op] = value;
     var match = {};
     match[entity] = matchOp;
-    return matchOp;
+    return match;
 };
 
 var createReducer = function(entity, op) {
