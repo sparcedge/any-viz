@@ -40,6 +40,8 @@
 
 (defn -main [& [conf-file]]
   (let [conf (read-conf conf-file)
-        app (app-routes conf)]
+        app (app-routes conf)
+        port @g/server-port]
     (g/initialize-atoms conf)
-    (run-server app {:port @g/server-port :join? false})))
+    (run-server app {:port port :join? false})
+    (println "up and running on port:" port)))
