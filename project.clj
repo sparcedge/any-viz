@@ -12,5 +12,5 @@
                  [ring/ring-devel "1.1.8"]
                  [clj-http "0.7.4"]
                  [cheshire "5.2.0"]
-                 [tentacles "0.2.6-SNAPSHOT"]
+                 [tentacles "0.3.0"]
                  [clj-time "0.5.1"]])
