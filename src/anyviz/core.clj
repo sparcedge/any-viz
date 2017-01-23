@@ -17,6 +17,8 @@
 (defn read-conf [file]
   (json/parse-string (slurp (or file resource-conf)) true))
 
+(defn print-message [& msg] (apply println msg))
+
 (defn query-turbine [params]
   (let [query (t/create-query-from-params params)
         db (:db query)
@@ -39,9 +41,10 @@
     (-> #'routes handler/site reload/wrap-reload)))
 
 (defn -main [& [conf-file]]
+  (println  "starting any-viz...")
   (let [conf (read-conf conf-file)
         app (app-routes conf)
         port @g/server-port]
     (g/initialize-atoms conf)
     (run-server app {:port port :join? false})
-    (println "up and running on port:" port)))
+    (print-message "any-viz up and running on port:" port "\npress Ctl+C to exit")))
